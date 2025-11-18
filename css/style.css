@@ -1427,7 +1427,7 @@ main.main{
 .popup{
     position: fixed;
     inset: 0;
-    background-color: hwb(199 0% 75% / 0.7);
+    background: rgba(238, 219, 186, 0.50);
     z-index: 123;
     overflow: auto;
     opacity: 0;
@@ -1443,8 +1443,6 @@ main.main{
     position: relative;
     transform: translateY(-10.417vw);
     transition: all .5s ease;
-    -webkit-box-shadow: 0vw 0vw 0.99vw 0.26vw rgba(0,0,0,0.2); 
-    box-shadow: 0vw 0vw 0.99vw 0.26vw rgba(0,0,0,0.2);
 }
 .popup.active{
     opacity: 1;
@@ -1621,8 +1619,6 @@ p > a:not(:hover){
         padding: 40px 20px;
         margin: 10% auto;
         transform: translateY(-200.006px);
-        -webkit-box-shadow: 0px 0px 19.008px 4.992px rgba(0,0,0,0.2);
-        box-shadow: 0px 0px 19.008px 4.992px rgba(0,0,0,0.2);
     }
     .popup__close{
         top: 20.006px;
