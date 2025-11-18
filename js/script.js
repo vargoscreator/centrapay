@@ -706,3 +706,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+
+function scrollToHash(offset = 0) {
+    if (!window.location.hash) return;
+    const hash = window.location.hash;
+    const target = document.querySelector(hash);
+    if (target) {
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+        window.scrollTo({
+            top: top,
+            behavior: 'smooth'
+        });
+    }
+}
+window.addEventListener('load', () => scrollToHash(0));
