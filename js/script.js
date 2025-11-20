@@ -1,377 +1,299 @@
 gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener("DOMContentLoaded", () => {
-    
-    const words = document.querySelectorAll(".hero__title span");
-    words.forEach(word => {
-        const letters = word.textContent.trim().split("");
-        word.innerHTML = letters
-            .map(letter => `<span class="letter">${letter}</span>`)
+    const splitTextIntoLetters = (selector) => {
+        const el = document.querySelector(selector);
+        if (!el) return;
+        const text = el.textContent.trim();
+        el.innerHTML = text
+            .split("")
+            .map(char => `<span class="letter">${char === " " ? "&nbsp;" : char}</span>`)
             .join("");
+    };
+
+    document.querySelectorAll(".hero__title span").forEach(span => {
+        const letters = span.textContent.trim().split("");
+        span.innerHTML = letters.map(l => `<span class="letter">${l}</span>`).join("");
     });
 
-    gsap.fromTo(
-      ".hero__animated",
-      { scale: 0.5, opacity: 1 },
-      { scale: 1, opacity: 1, duration: 2, ease: "power3.out" }
+    splitTextIntoLetters(".services__title");
+    splitTextIntoLetters(".contact__title");
+    splitTextIntoLetters(".contact__info-adress");
+
+    gsap.fromTo(".hero__animated", 
+        { scale: 0.5, opacity: 0 }, 
+        { scale: 1, opacity: 1, duration: 2, ease: "power3.out" }
     );
 
-    const tlHero = gsap.timeline({ delay: 0.2 });
-
-    tlHero.fromTo(
-        ".hero__title .letter",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, stagger: 0.03, duration: 0.05, ease: "power2.out" }
+    const tlHero = gsap.timeline({ delay: 0.3 });
+    tlHero.fromTo(".hero__title .letter", 
+        { opacity: 0, y: 20 }, 
+        { opacity: 1, y: 0, duration: 0.05, stagger: 0.03, ease: "power2.out" }
+    );
+    tlHero.fromTo(".hero__name span", 
+        { x: -100, opacity: 0 }, 
+        { x: 0, opacity: 1, duration: 0.7, stagger: 0.2, ease: "power3.out" }, "-=0.4"
+    );
+    tlHero.fromTo(".hero__descr", 
+        { y: 30, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, "-=0.4"
+    );
+    tlHero.fromTo(".hero__more", 
+        { y: 20, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, "-=0.4"
+    );
+    tlHero.fromTo(".hero__btn", 
+        { scale: 0.8, opacity: 0 }, 
+        { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.7)" }, "-=0.4"
     );
 
-    tlHero.fromTo(
-        ".hero__name span",
-        { x: -100, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.6, stagger: 0.25, ease: "power3.out" },
-        "-=0.1"
-    );
-
-    tlHero.fromTo(
-        ".hero__descr",
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
-        "-=0.1"
-    );
-
-    tlHero.fromTo(
-        ".hero__more",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
-        "-=0.1"
-    );
-
-    tlHero.fromTo(
-        ".hero__btn",
-        { scale: 0.8, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" },
-        "-=0.1"
-    );
-
-    const serviceTitle = document.querySelector(".services__title");
-    if (serviceTitle) {
-        const titleText = serviceTitle.textContent.trim();
-        serviceTitle.innerHTML = titleText
-            .split("")
-            .map(char => `<span class="letter">${char}</span>`)
-            .join("");
-
-        const tlServicesInfo = gsap.timeline({
+    gsap.utils.toArray(".services__title .letter").forEach((letter, i) => {
+        gsap.from(letter, {
+            opacity: 0,
+            y: 20,
+            duration: 0.7,
+            ease: "power2.out",
             scrollTrigger: {
                 trigger: ".services",
-                start: "top 80%",
-                toggleActions: "play reverse play reverse"
-            }
-        });
-
-        tlServicesInfo.fromTo(
-            ".services__title .letter",
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, stagger: 0.1, duration: 0.5, ease: "power2.out" }
-        );
-
-        tlServicesInfo.fromTo(
-            ".services__info-time",
-            { x: -100, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
-            "-=0.1"
-        );
-
-        tlServicesInfo.fromTo(
-            ".services__info-descr",
-            { x: -100, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
-            "-=0.1"
-        );
-    }
-
-    const itemsServices = document.querySelectorAll(".services__item");
-    if (itemsServices.length) {
-        const tlServicesItems = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".services__block",
-                start: "top 80%",
-                toggleActions: "play reverse play reverse"
-            }
-        });
-
-        itemsServices.forEach(item => {
-            tlServicesItems.fromTo(
-                item.querySelector(".services__item-line"),
-                { scaleX: 0, transformOrigin: "left center" },
-                { scaleX: 1, duration: 0.15, ease: "power3.out" }
-            );
-        });
-
-        itemsServices.forEach(item => {
-            tlServicesItems.fromTo(
-                item.querySelector(".services__item-title"),
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
-            );
-
-            tlServicesItems.fromTo(
-                item.querySelector(".services__item-descr"),
-                { opacity: 0, y: -20 },
-                { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-                "-=0.5"
-            );
-        });
-    }
-
-    if (document.querySelector(".whywe")) {
-        const tlWhywe = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".whywe",
-                start: "top 80%",
-                toggleActions: "play reverse play reverse"
-            }
-        });
-
-        tlWhywe.fromTo(
-            ".whywe__line",
-            { scaleX: 0, transformOrigin: "left center" },
-            { scaleX: 1, duration: 0.7, ease: "power3.out" }
-        );
-
-        tlWhywe.fromTo(
-            ".whywe__title",
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
-            "-=0.3"
-        );
-
-        tlWhywe.fromTo(
-            ".whywe__descr",
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.2 },
-            "-=0.3"
-        );
-
-        tlWhywe.fromTo(
-            ".whywe__info-item",
-            { opacity: 0, x: -30 },
-            { opacity: 1, x: 0, duration: 0.5, ease: "power3.out", stagger: 0.2 },
-            "-=0.6"
-        );
-
-        const itemsWhywe = document.querySelectorAll(".whywe__item");
-        itemsWhywe.forEach(item => {
-            gsap.fromTo(
-                item,
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 90%",
-                        toggleActions: "play reverse play reverse"
-                    }
-                }
-            );
-        });
-
-        const num = { val: 30 };
-        gsap.to(num, {
-            val: 37,
-            duration: 2,
-            ease: "power1.out",
-            scrollTrigger: {
-                trigger: ".whywe__num",
-                start: "top 50%",
-                toggleActions: "play reverse play reverse",
+                start: "top 70%",
+                toggleActions: "play none none reverse"
             },
-            onUpdate: () => {
-                document.querySelector(".whywe__num").textContent = Math.floor(num.val);
-            }
+            delay: i * 0.05
         });
-    }
+    });
 
-    if (document.querySelector(".started")) {
-        const tlStarted = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".started",
-                start: "top 80%",
-                toggleActions: "play reverse play reverse"
-            }
-        });
+    gsap.from(".services__info-time, .services__info-descr", {
+        x: -100,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".services",
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+        }
+    });
 
-        tlStarted.fromTo(
-            ".started__line",
-            { scaleX: 0, transformOrigin: "left center" },
-            { scaleX: 1, duration: 0.7, ease: "power3.out" }
-        );
+    document.querySelectorAll(".services__item").forEach((item, index) => {
+        const line   = item.querySelector(".services__item-line");
+        const title  = item.querySelector(".services__item-title");
+        const descr  = item.querySelector(".services__item-descr");
 
-        tlStarted.fromTo(
-            ".started__title",
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
-            "-=0.3"
-        );
-
-        tlStarted.fromTo(
-            ".started__item-num",
-            { opacity: 0, x: -30 },
-            { opacity: 1, x: 0, duration: 0.5, ease: "power3.out", stagger: 0.2 },
-            "-=0.3"
-        );
-
-        const itemsStarted = document.querySelectorAll(".started__item");
-        itemsStarted.forEach(item => {
-            tlStarted.fromTo(
-                item.querySelector(".started__item-line"),
-                { scaleX: 0, transformOrigin: "left center" },
-                { scaleX: 1, duration: 0.5, ease: "power3.out" }
-            );
-
-            tlStarted.fromTo(
-                item.querySelector(".started__item-title"),
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-                "-=0.4"
-            );
-
-            tlStarted.fromTo(
-                item.querySelector(".started__item-descr"),
-                { opacity: 0, y: -20 },
-                { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-                "-=0.4"
-            );
-        });
-    }
-
-    if (document.querySelector(".credentials")) {
-        const tlCredentials = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".credentials",
-                start: "top 80%",
-                toggleActions: "play reverse play reverse"
-            }
-        });
-
-        tlCredentials.fromTo(
-            ".credentials__line",
-            { scaleX: 0, transformOrigin: "left center" },
-            { scaleX: 1, duration: 0.7, ease: "power3.out" }
-        );
-
-        tlCredentials.fromTo(
-            ".credentials__title",
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
-            "-=0.3"
-        );
-
-        tlCredentials.fromTo(
-            ".credentials__name span",
-            { opacity: 0, x: -30 },
-            { opacity: 1, x: 0, duration: 0.5, ease: "power3.out", stagger: 0.2 },
-            "-=0.3"
-        );
-
-        tlCredentials.fromTo(
-            ".credentials__info",
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
-            "-=0.3"
-        );
-
-        tlCredentials.fromTo(
-            ".credentials__info span:nth-of-type(1)",
-            { width: 0 },
-            { width: "100%", duration: 0.4, ease: "power3.out" }
-        )
-        .fromTo(
-            ".credentials__info span:nth-of-type(2)",
-            { height: 0 },
-            { height: "100%", duration: 0.4, ease: "power3.out" }
-        )
-        .fromTo(
-            ".credentials__info span:nth-of-type(3)",
-            { width: 0 },
-            { width: "100%", duration: 0.4, ease: "power3.out" }
-        )
-        .fromTo(
-            ".credentials__info span:nth-of-type(4)",
-            { height: 0 },
-            { height: "100%", duration: 0.4, ease: "power3.out" }
-        );
-
-        tlCredentials.fromTo(
-            ".credentials__bottom p",
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.3 }
-        );
-    }
-
-    if (document.querySelector(".faq")) {
-        const tlFaq = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".faq",
-                start: "top 80%",
-                toggleActions: "play reverse play reverse"
-            }
-        });
-
-        tlFaq.fromTo(
-            ".faq__line",
-            { scaleX: 0, transformOrigin: "right center" },
-            { scaleX: 1, duration: 0.7, ease: "power3.out" }
-        );
-
-        tlFaq.fromTo(
-            ".faq__title",
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
-            "-=0.3"
-        );
-
-        gsap.utils.toArray(".faq__item").forEach((item, i) => {
-        gsap.fromTo(
-            item,
-            { opacity: 0, y: 30 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                delay: i * 0.2,
+        if (line) {
+            gsap.from(line, {
+                scaleX: 0,
+                transformOrigin: "left center",
+                duration: 0.8,
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: item,
-                    start: "top 80%",
-                    toggleActions: "play reverse play reverse"
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
                 }
-            }
-        );
+            });
+        }
+
+        if (title) {
+            gsap.from(title, {
+                opacity: 0, y: 30, duration: 0.7, ease: "power3.out",
+                scrollTrigger: { trigger: item, start: "top 85%", toggleActions: "play none none reverse" },
+                delay: 0.2
+            });
+        }
+
+        if (descr) {
+            gsap.from(descr, {
+                opacity: 0, y: -20, duration: 0.7, ease: "power3.out",
+                scrollTrigger: { trigger: item, start: "top 85%", toggleActions: "play none none reverse" },
+                delay: 0.3
+            });
+        }
     });
 
-    }
+    gsap.from(".whywe__line", { scaleX: 0, transformOrigin: "left center", duration: 1, ease: "power3.out",
+        scrollTrigger: { trigger: ".whywe", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.from(".whywe__title", { y: 40, opacity: 0, duration: 0.8, ease: "power3.out",
+        scrollTrigger: { trigger: ".whywe", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.from(".whywe__descr", { y: 30, opacity: 0, duration: 0.7, stagger: 0.15, ease: "power3.out",
+        scrollTrigger: { trigger: ".whywe", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.from(".whywe__info-item", { x: -40, opacity: 0, duration: 0.7, stagger: 0.15, ease: "power3.out",
+        scrollTrigger: { trigger: ".whywe", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    document.querySelectorAll(".whywe__item").forEach(item => {
+        gsap.from(item, {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: item,
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+
+    const numCounter = { val: 30 };
+    gsap.to(numCounter, {
+        val: 37,
+        duration: 2.5,
+        ease: "power1.out",
+        scrollTrigger: {
+            trigger: ".whywe__num",
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+        },
+        onUpdate: () => {
+            document.querySelector(".whywe__num").textContent = Math.round(numCounter.val);
+        }
+    });
+
+    gsap.to(".started__line", {
+        scaleX: 1,
+        duration: 0.9,
+        ease: "power3.out",
+        transformOrigin: "left center",
+        scrollTrigger: {
+            trigger: ".started",
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+        }
+    });
+    gsap.from(".started__title", { y: 40, opacity: 0, duration: 0.8,
+        scrollTrigger: { trigger: ".started", start: "top 70%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.from(".started__item-num", { x: -40, opacity: 0, stagger: 0.15, duration: 0.7,
+        scrollTrigger: { trigger: ".started", start: "top 20%", toggleActions: "play none none reverse" }
+    });
+
+    document.querySelectorAll(".started__item").forEach(item => {
+        const line  = item.querySelector(".started__item-line");
+        const title = item.querySelector(".started__item-title");
+        const descr = item.querySelector(".started__item-descr");
+
+        if (line)  gsap.from(line,  { scaleX: 0, transformOrigin: "left center", duration: 0.8, scrollTrigger: { trigger: item, start: "top 90%", toggleActions: "play none none reverse" }});
+        if (title) gsap.from(title, { y: 30, opacity: 0, duration: 0.7, delay: 0.2, scrollTrigger: { trigger: item, start: "top 90%", toggleActions: "play none none reverse" }});
+        if (descr) gsap.from(descr, { y: -20, opacity: 0, duration: 0.7, delay: 0.3, scrollTrigger: { trigger: item, start: "top 90%", toggleActions: "play none none reverse" }});
+    });
+
+    gsap.from(".credentials__line", { scaleX: 0, transformOrigin: "left center",  duration: 1,
+        scrollTrigger: { trigger: ".credentials", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.from(".credentials__title", { y: 40, opacity: 0, duration: 0.8,
+        scrollTrigger: { trigger: ".credentials", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.from(".credentials__name span", { x: -40, opacity: 0, stagger: 0.15, duration: 0.7,
+        scrollTrigger: { trigger: ".credentials", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.from(".credentials__info", { y: 40, opacity: 0, duration: 0.8,
+        scrollTrigger: { trigger: ".credentials", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: ".credentials",
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+        }
+    })
+    .fromTo(".credentials__info span:nth-of-type(1)", 
+        { width: 0 }, 
+        { width: "100%", duration: 0.6, ease: "power3.out" }
+    )
+
+    .fromTo(".credentials__info span:nth-of-type(2)", 
+        { height: 0 }, 
+        { height: "100%", duration: 0.6, ease: "power3.out" },
+        0.6
+    )
+
+    .fromTo(".credentials__info span:nth-of-type(3)", 
+        { width: 0 }, 
+        { width: "100%", duration: 0.6, ease: "power3.out" },
+        1.2
+    )
+
+    .fromTo(".credentials__info span:nth-of-type(4)", 
+        { height: 0 }, 
+        { height: "100%", duration: 0.6, ease: "power3.out" },
+        1.8
+    );
+
+    gsap.from(".credentials__bottom p", { y: 30, opacity: 0, stagger: 0.2, duration: 0.7,
+        scrollTrigger: { trigger: ".credentials__bottom", start: "top 85%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.from(".faq__line", { scaleX: 0, transformOrigin: "right center", duration: 1,
+        scrollTrigger: { trigger: ".faq", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    gsap.from(".faq__title", { y: 40, opacity: 0, duration: 0.8,
+        scrollTrigger: { trigger: ".faq", start: "top 80%", toggleActions: "play none none reverse" }
+    });
+
+    document.querySelectorAll(".faq__item").forEach((item, i) => {
+        gsap.from(item, {
+            y: 40,
+            opacity: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: item,
+                start: "top 95%",
+                toggleActions: "play none none reverse"
+            },
+            delay: i * 0.1
+        });
+    });
 
     if (document.querySelector(".contact")) {
-        const splitText = (selector) => {
-            const el = document.querySelector(selector);
-            if (!el) return;
-            el.innerHTML = el.textContent
+
+    const splitTextForContact = (selector) => {
+        const el = document.querySelector(selector);
+        if (!el) return;
+        
+        const fullText = el.textContent.trim();
+        
+        el.innerHTML = fullText
+            .split("")
+            .map(letter => {
+                const content = letter === ' ' ? '&nbsp;' : letter;
+                return `<span class="letter">${content}</span>`;
+            })
+            .join("");
+    };
+    splitTextForContact(".contact__info-adress"); 
+        
+        const splitTitle = () => {
+            const title = document.querySelector(".contact__title");
+            if (!title || title.dataset.split) return;
+            title.dataset.split = "true";
+
+            title.innerHTML = title.textContent
                 .split("")
-                .map(letter => `<span class="letter">${letter}</span>`)
+                .map(char => `<span class="letter">${char === " " ? "&nbsp;" : char}</span>`)
                 .join("");
         };
 
-        splitText(".contact__title");
-        splitText(".contact__info-adress");
+        splitTitle();
 
         const tlContact = gsap.timeline({
             scrollTrigger: {
                 trigger: ".contact",
                 start: "top 80%",
-                toggleActions: "play reverse play reverse"
+                toggleActions: "play none none reverse"
             }
         });
 
@@ -413,21 +335,21 @@ document.addEventListener("DOMContentLoaded", () => {
             ".contact__info-adress .letter",
             { opacity: 0 },
             { opacity: 1, stagger: 0.01, duration: 0.02, ease: "power1.out" },
-            "-=0.4"
+            "-=0.4" 
         );
-
+        
         tlContact.fromTo(
             ".contact__right-title",
             { opacity: 0, y: 30 },
             { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
-            "-=1.0"
+            "<"
         );
 
         tlContact.fromTo(
             ".contact__right-line",
             { scaleX: 0, transformOrigin: "left center" },
             { scaleX: 1, duration: 0.7, ease: "power3.out" },
-            "-=0.8"
+            "-=0.5"
         );
 
         tlContact.fromTo(
@@ -444,11 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "-=0.5"
         );
     }
-});
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
+    
     gsap.from(".pagecontent__title", {
         y: 50,
         opacity: 0,
@@ -457,10 +375,11 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollTrigger: {
             trigger: ".pagecontent__title",
             start: "top 80%",
-            toggleActions: "play reverse play reverse"
+            toggleActions: "play none none reverse"
         }
     });
-    gsap.utils.toArray(".pagecontent__content").forEach((p, i) => {
+    
+    gsap.utils.toArray(".pagecontent__content").forEach(p => {
         gsap.from(p, {
             y: 30,
             opacity: 0,
@@ -469,15 +388,15 @@ document.addEventListener("DOMContentLoaded", () => {
             scrollTrigger: {
                 trigger: p,
                 start: "top 85%",
-                toggleActions: "play reverse play reverse"
+                toggleActions: "play none none reverse"
             },
             delay: 0.2
         });
     });
-});
-
-window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
+    
+    window.addEventListener("load", () => {
+        ScrollTrigger.refresh();
+    });
 });
 
 

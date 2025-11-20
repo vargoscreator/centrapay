@@ -1280,9 +1280,10 @@ main.main{
     justify-content: space-between;
     gap: 1.042vw;
 }
-.contact__info-adress{
+.contact__info-adress {
     width: 100%;
-    max-width: 15.208vw;
+    max-width: 15.108vw;
+    word-break: break-all;
 }
 .contact__info-write{
     display: flex;
