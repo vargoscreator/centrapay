@@ -2,7 +2,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const contactLogo = document.querySelectorAll('.contact__logo img');
 gsap.from(contactLogo, {
-    opacity: 0,
+    y: 220,
+    opacity: 1,
     stagger: 0.2,
     duration: 0.6,
     ease: "power2.out",
@@ -15,6 +16,7 @@ gsap.from(contactLogo, {
 
 const headertLogo = document.querySelectorAll('.header__logo img');
 gsap.from(headertLogo, {
+    y: 100,
     opacity: 0,
     stagger: 0.2,
     duration: 0.6,
@@ -24,20 +26,6 @@ gsap.from(headertLogo, {
         start: "top 80%",
         toggleActions: "play none none reverse",
     }
-});
-
-contactLogo.forEach((img, i) => {
-    const direction = i % 2 === 0 ? 1 : -1;
-    const amplitude = 5 + Math.random() * 5;
-    const duration = 2 + Math.random() * 1.5;
-
-    gsap.to(img, {
-        y: `+=${amplitude * direction}`,
-        duration: duration,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-    });
 });
 
 document.addEventListener("DOMContentLoaded", () => {

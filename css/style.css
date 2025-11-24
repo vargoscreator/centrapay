@@ -191,9 +191,11 @@ main.main{
     max-width: 74.792vw;
 }
 .header__logo{
+    overflow: hidden;
     display: flex;
     align-items: center;
     width: 100%;
+    padding-top: 1.042vw;
     max-width: 15.052vw;
     height: 3.438vw;
     position: relative;
@@ -219,8 +221,8 @@ main.main{
 }
 .header__logo img:last-of-type {
     position: absolute;
-    top: -0.313vw;
-    right: -0.365vw;
+    top: 0;
+    right: 0;
     height: 1.094vw;
 }
 .header__menu ul{
@@ -277,8 +279,8 @@ main.main{
         justify-content: space-between;
     }
     .header__logo{
-        max-width: 175px;
-        height: 25px;
+        max-width: 195px;
+        height: 40px;
     }
     .header__logo img{
         height: 25px;
@@ -287,20 +289,20 @@ main.main{
         margin-right: 5px;
     }
     .header__logo img:nth-of-type(2){
-        margin-right: 7px;
+        margin-right: 5px;
     }
     .header__logo img:nth-of-type(3){
-        margin-right: 3px;
+        margin-right: 5px;
     }
     .header__logo img:nth-of-type(4){
-        margin-right: 7px;
+        margin-right: 5px;
     }
     .header__logo img:nth-of-type(5){
-        margin-right: 7px;
+        margin-right: 5px;
     }
     .header__logo img:last-of-type {
-        top: -11.01px;
-        right: -19.008px;
+        top: 0;
+        right: 0;
         height: 14.005px;
     }
 
@@ -1338,6 +1340,7 @@ main.main{
     display: flex;
     align-items: end;
     position: relative;
+    overflow: hidden;
 }
 .contact__logo img{
     height: 7.813vw;
