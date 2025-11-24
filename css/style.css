@@ -273,6 +273,7 @@ main.main{
         background-color: #002C41;
     }
     .header__inner{
+        align-items: center;
         padding: 20px 0;
         gap: 20px;
         max-width: 100%;
