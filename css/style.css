@@ -194,10 +194,34 @@ main.main{
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 15.104vw;
+    max-width: 15.052vw;
+    height: 3.438vw;
+    position: relative;
 }
 .header__logo img{
-    width: 100%;
+    width: auto;
+    height: 2.083vw;
+}
+.header__logo img:nth-of-type(1){
+    margin-right: 0.417vw;
+}
+.header__logo img:nth-of-type(2){
+    margin-right: 0.521vw;
+}
+.header__logo img:nth-of-type(3){
+    margin-right: 0.313vw;
+}
+.header__logo img:nth-of-type(4){
+    margin-right: 0.521vw;
+}
+.header__logo img:nth-of-type(5){
+    margin-right: 0.521vw;
+}
+.header__logo img:last-of-type {
+    position: absolute;
+    top: -0.313vw;
+    right: -0.365vw;
+    height: 1.094vw;
 }
 .header__menu ul{
     display: flex;
@@ -254,7 +278,32 @@ main.main{
     }
     .header__logo{
         max-width: 175px;
+        height: 25px;
     }
+    .header__logo img{
+        height: 25px;
+    }
+    .header__logo img:nth-of-type(1){
+        margin-right: 5px;
+    }
+    .header__logo img:nth-of-type(2){
+        margin-right: 7px;
+    }
+    .header__logo img:nth-of-type(3){
+        margin-right: 3px;
+    }
+    .header__logo img:nth-of-type(4){
+        margin-right: 7px;
+    }
+    .header__logo img:nth-of-type(5){
+        margin-right: 7px;
+    }
+    .header__logo img:last-of-type {
+        top: -11.01px;
+        right: -19.008px;
+        height: 14.005px;
+    }
+
     .header__menu{
         position: fixed;
         inset: 0;
@@ -601,6 +650,15 @@ main.main{
     margin-left: 7.969vw;
     max-width: 26.042vw;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.whywe__btn{
+    order: 1;
+    margin-top: 4.583vw;
+    max-width: 11.146vw;
+    width: 100%;
+    margin-left: auto;
 }
 .whywe__line{
     margin-bottom: 1.615vw;
@@ -689,7 +747,7 @@ main.main{
     line-height: 118%; /* 35.4vw */
     text-transform: uppercase;
     position: absolute;
-    bottom: -8.802vw;
+    bottom: 0;
     right: -17.708vw;
     width: 35.781vw;
 }
@@ -703,6 +761,11 @@ main.main{
     .whywe__content{
         margin-left: 0;
         max-width: 100%;
+    }
+    .whywe__btn{
+        max-width: 100%;
+        max-width: 234px;
+        margin: 60px auto 0;
     }
     .whywe__line {
         margin-bottom: 30px;
@@ -1268,9 +1331,38 @@ main.main{
     justify-content: space-between;
     align-items: start;
 }
-.contact__logo img,
 .contact__logo{
     width: 100%;
+    height: 13.073vw;
+    max-width: 57.083vw;
+    display: flex;
+    align-items: end;
+    position: relative;
+}
+.contact__logo img{
+    height: 7.813vw;
+    width: auto;
+}
+.contact__logo img:nth-of-type(1){
+    margin-right: 1.615vw;
+}
+.contact__logo img:nth-of-type(2){
+    margin-right: 1.979vw;
+}
+.contact__logo img:nth-of-type(3){
+    margin-right: 1.25vw;
+}
+.contact__logo img:nth-of-type(4){
+    margin-right: 2.083vw;
+}
+.contact__logo img:nth-of-type(5){
+    margin-right: 1.979vw;
+}
+.contact__logo img:nth-of-type(7){
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 4.219vw;
 }
 .contact__info{
     width: 100%;
@@ -1383,6 +1475,37 @@ main.main{
     }
     .contact__info-btn{
         max-width: 100%;
+    }
+
+    .contact__logo {
+        width: 100%;
+        height: 75px;
+        max-width: 330px;
+        margin: 0 auto;
+    }
+    .contact__logo img{
+        height: 50px;
+        width: auto;
+    }
+    .contact__logo img:nth-of-type(1){
+        margin-right: 5px;
+    }
+    .contact__logo img:nth-of-type(2){
+        margin-right: 5px;
+    }
+    .contact__logo img:nth-of-type(3){
+        margin-right: 5px;
+    }
+    .contact__logo img:nth-of-type(4){
+        margin-right: 5px;
+    }
+    .contact__logo img:nth-of-type(5){
+        margin-right: 5px;
+    }
+    .contact__logo img:nth-of-type(7){
+        top: 0;
+        right: 0;
+        height: 20px;
     }
 }
 /* footer */
@@ -1761,4 +1884,42 @@ input:-webkit-autofill:active {
 }
 .hero__name span{
     opacity: 0;
+}
+
+.upbtn{
+    position: fixed;
+    bottom: 1.042vw;
+    right: 1.042vw;
+    width: 3.906vw;
+    height: 3.906vw;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.906vw;
+    background-color: #EEDBBA;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .1s ease;
+    z-index: 90;
+}
+.upbtn.active{
+    opacity: 1;
+    pointer-events: all;
+}
+.upbtn svg{
+    width: 1.563vw;
+    height: auto;
+}
+@media (max-width: 768px) {
+    .upbtn{
+        bottom: 16px;
+        right: 16px;
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+    }
+    .upbtn svg{
+        width: 20px;
+    }
 }

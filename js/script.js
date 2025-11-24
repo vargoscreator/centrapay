@@ -1,5 +1,45 @@
 gsap.registerPlugin(ScrollTrigger);
 
+const contactLogo = document.querySelectorAll('.contact__logo img');
+gsap.from(contactLogo, {
+    opacity: 0,
+    stagger: 0.2,
+    duration: 0.6,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: '.contact__logo',
+        start: "top 80%",
+        toggleActions: "play none none reverse",
+    }
+});
+
+const headertLogo = document.querySelectorAll('.header__logo img');
+gsap.from(headertLogo, {
+    opacity: 0,
+    stagger: 0.2,
+    duration: 0.6,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: '.header__logo',
+        start: "top 80%",
+        toggleActions: "play none none reverse",
+    }
+});
+
+contactLogo.forEach((img, i) => {
+    const direction = i % 2 === 0 ? 1 : -1;
+    const amplitude = 5 + Math.random() * 5;
+    const duration = 2 + Math.random() * 1.5;
+
+    gsap.to(img, {
+        y: `+=${amplitude * direction}`,
+        duration: duration,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+    });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const splitTextIntoLetters = (selector) => {
         const el = document.querySelector(selector);
@@ -317,12 +357,8 @@ document.addEventListener("DOMContentLoaded", () => {
             "-=0.4"
         );
 
-        tlContact.fromTo(
-            ".contact__logo",
-            { opacity: 0, x: -30 },
-            { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" },
-            "-=0.4"
-        );
+
+        
 
         tlContact.fromTo(
             ".contact__info-write",
@@ -642,3 +678,15 @@ function scrollToHash(offset = 0) {
     }
 }
 window.addEventListener('load', () => scrollToHash(0));
+
+const upBtn = document.querySelector('.upbtn');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    upBtn.classList.add('active');
+  } else {
+    upBtn.classList.remove('active');
+  }
+});
+upBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
