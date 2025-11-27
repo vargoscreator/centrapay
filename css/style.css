@@ -1529,12 +1529,13 @@ main.main{
     gap: 2.865vw;
 }
 .footer__menu li a{
-    font-size: 1.042vw;
-    font-weight: 600;
-    line-height: 1.146vw; /* 110% */
-    letter-spacing: -0.046vw;
-    text-transform: uppercase;
     transition: all .1s ease;
+    font-size: 0.715vw;
+    font-weight: 400;
+    text-align: center;
+}
+.footer__menu li a:not(:hover){
+    text-decoration: underline;
 }
 .footer__menu li a:hover{
     color: #F00;
@@ -1554,8 +1555,6 @@ main.main{
     }
     .footer__menu li a{
         font-size: 12px;
-        line-height: 22px; /* 110% */
-        letter-spacing: -0.88px;
     }
     .footer__copy{
         font-size: 12px;
