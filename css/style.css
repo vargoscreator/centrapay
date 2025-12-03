@@ -1839,10 +1839,24 @@ p > a:not(:hover){
     font-weight: 800;
     line-height: 125%; /* 4.167vw */
     letter-spacing: 0.1vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.146vw;
+    margin: 0 auto;
+}
+.pagecontent__title::before{
+    width: 1.042vw;
+    min-width: 1.042vw;
+    height: 1.042vw;
+    background-color: #E40426;
+    border-radius: 50%;
+    content: '';
+    display: inline-block;
 }
 .pagecontent__content{
-    max-width: 52.083vw;
-    margin: 2.604vw auto 0;
+    max-width: 55.156vw;
+    margin: 3.125vw auto 0;
 }
 .pagecontent__content ol li {
     list-style: decimal;
@@ -1850,6 +1864,72 @@ p > a:not(:hover){
 }
 .pagecontent + .contact{
     margin-top: 3.125vw;
+}
+.pagecontent__content p + p{
+    margin-top: 0.833vw;
+}
+.pagecontent__content mark{
+    color: #EEDBBA;
+}
+.pagecontent__content strong{
+    font-size: 1.042vw;
+    font-weight: 700;
+    line-height: 104%; /* 1.083vw */
+    text-transform: uppercase;
+}
+.pagecontent__content h3{
+    margin-top: 1.823vw;
+    margin-bottom: 0.833vw;
+    color: #EEDBBA;
+    font-size: 0.833vw;
+    font-weight: 700;
+    line-height: 135%; /* 1.125vw */
+    text-transform: uppercase;
+}
+.pagecontent__content ul{
+    margin-top: 0.833vw;
+}
+.pagecontent__content li{
+    padding-left: 3.385vw;
+    position: relative;
+}
+.pagecontent__content li + li{
+    margin-top: 0.625vw;
+}
+.pagecontent__content li::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 2.344vw;
+    transform: translateY(-50%);
+    width: 0.521vw;
+    height: 0.521vw;
+    min-width: 0.521vw;
+    background-color: #E40426;
+    border-radius: 50%;
+}
+.pagecontent__content ul + p{
+    margin-top: 0.833vw;
+}
+.pagecontent__content h4{
+    margin-top: 0.833vw;
+    margin-bottom: 0.833vw;
+    color: #E9D7B8;
+    font-size: 0.833vw;
+    font-weight: 400;
+    line-height: 135%; /* 1.125vw */
+    text-transform: uppercase;
+}
+.upper{
+    text-transform: uppercase;
+}
+.pagecontent__content h5{
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 16px;
+}
+.pagecontent__content p strong{
+    font-weight: 700;
 }
 @media (max-width: 768px) {
     .pagecontent{
@@ -1866,6 +1946,58 @@ p > a:not(:hover){
     }
     .pagecontent + .contact{
         margin-top: 60px;
+    }
+    .pagecontent__title{
+        gap: 12px;
+    }
+    .pagecontent__title::before{
+        width: 13px;
+        min-width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        content: '';
+    }
+    .pagecontent__content{
+        max-width: 1059px;
+        margin: 60px auto 0;
+    }
+    .pagecontent__content p + p{
+        margin-top: 16px;
+    }
+    .pagecontent__content strong{
+        font-size: 20px;
+        line-height: 20.8px; /* Расчётное значение из 104% */
+    }
+    .pagecontent__content h3{
+        margin-top: 35px;
+        margin-bottom: 16px;
+        font-size: 16px;
+        line-height: 21.6px; /* Расчётное значение из 135% */
+    }
+    .pagecontent__content ul{
+        margin-top: 16px;
+    }
+    .pagecontent__content li{
+        padding-left: 23px;
+    }
+    .pagecontent__content li + li{
+        margin-top: 12px;
+    }
+    .pagecontent__content li::before{
+        width: 10px;
+        height: 10px;
+        min-width: 10px;
+        left: 0px;
+        border-radius: 50%;
+    }
+    .pagecontent__content ul + p{
+        margin-top: 16px;
+    }
+    .pagecontent__content h4{
+        margin-top: 16px;
+        margin-bottom: 16px;
+        font-size: 16px;
+        line-height: 21.6px; /* Расчётное значение из 135% */
     }
 }
 input:-webkit-autofill,
